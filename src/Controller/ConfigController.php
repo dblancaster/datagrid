@@ -9,10 +9,15 @@ use Grid\Model\Config;
 use Grid\Model\Query\ConfigQuery;
 use Grid\Model\Query\ConfigQueryFrom;
 use Grid\Model\Query\ConfigQueryJoin;
+use Grid\Model\Query\ConfigQueryWhere;
 
-abstract class ConfigController
+
+class ConfigController
 {
 
+    /**
+     * @throws Exception
+     */
     public function compileFromArray(array $configArray): Config
     {
         $config = new Config();
@@ -22,6 +27,9 @@ abstract class ConfigController
         return $config;
     }
 
+    /**
+     * @throws Exception
+     */
     public function validate(Config $config) {
         $errors = [];
         foreach ($config->columns as $column) {
@@ -60,7 +68,8 @@ abstract class ConfigController
 
     public function compileQuery(Config $config, array $query)
     {
-        $configQuery = new ConfigQuery();
+        $config->query = $configQuery = new ConfigQuery();
+
         $configQuery->select = $query["select"];
 
         $configQueryFrom = new ConfigQueryFrom();
@@ -68,17 +77,24 @@ abstract class ConfigController
         $configQueryFrom->alias = $query["from"]["alias"];
         $configQuery->from = $configQueryFrom;
 
-        foreach ($query["join"] as $join) {
-            $configJoin = new ConfigQueryJoin();
-            $configJoin->table = $join["table"];
-            $configJoin->alias = $join["alias"];
-            $configJoin->leftJoin = $join["leftJoin"];
-            $configJoin->rightJoin = $join["rightJoin"];
-            $configQuery->join[] = $configJoin;
+        if (isset($query["join"])) {
+            foreach ($query["join"] as $join) {
+                $configJoin = new ConfigQueryJoin();
+                $configJoin->table = $join["table"];
+                $configJoin->alias = $join["alias"];
+                $configJoin->leftJoin = $join["leftJoin"];
+                $configJoin->rightJoin = $join["rightJoin"];
+                $configQuery->join[] = $configJoin;
+            }
         }
-        $configQuery->select = $query["join"];
 
-        $config->source = $configQuery;
+        if (isset($query["where"])) {
+            foreach ($query["where"] as $where) {
+                $configWhere = new ConfigQueryWhere();
+                $configWhere->whereAnd = $where["whereAnd"] ?? null;
+                $configQuery->where[] = $configWhere;
+            }
+        }
     }
 
 }

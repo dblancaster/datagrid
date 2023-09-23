@@ -1,0 +1,4 @@
+query:
+  select:
+    - t.id
+  from: { table: transactions, alias: t }

@@ -9,7 +9,7 @@ class Config
 {
 
     /** @var ConfigQuery */
-    public $source;
+    public $query;
 
     /** @var ConfigColumn[] */
     public $columns = [];

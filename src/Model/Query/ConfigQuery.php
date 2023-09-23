@@ -19,4 +19,7 @@ class ConfigQuery
     /** @var ConfigQueryJoin[] */
     public $join;
 
+    /** @var ConfigQueryWhere[] */
+    public $where;
+
 }
