@@ -1,4 +1,13 @@
-query:
-  select:
-    - t.id
-  from: { table: transactions, alias: t }
+datagrids:
+  transactions_grid:
+    query:
+      select:
+        - t.id
+      from: { table: transactions, alias: t }
+    columns:
+      - id: t.id
+        label: abc
+        type: string
+        sortable: true
+        visible: false
+        enabled: true

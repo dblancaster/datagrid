@@ -1,0 +1,59 @@
+# Define the schema for a datagrid configuration
+datagrid_config_schema:
+  type: object
+  properties:
+    datagrids:
+      type: object
+      patternProperties:
+        '^[a-zA-Z0-9_]+$': # Pattern for datagrid names (alphanumeric and underscore)
+          type: object
+          properties:
+            query:
+              type: object
+              properties:
+                select:
+                  type: array
+                  items:
+                    type: string
+                  minItems: 1
+                from:
+                  type: object
+                  properties:
+                    table:
+                      type: string
+                    alias:
+                      type: string
+            columns:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  label:
+                    type: string
+                  type:
+                    type: string
+                    enum:
+                      - string
+                      - integer
+                      - decimal
+                      - boolean
+                      - currency
+                      - date
+                      - datetime
+                      - percent
+                  sortable:
+                    type: boolean
+                  sort:
+                    type: string
+                    enum:
+                      - null
+                      - asc
+                      - desc
+                  visible:
+                    type: boolean
+                  enabled:
+                    type: boolean
+  required:
+    - datagrids

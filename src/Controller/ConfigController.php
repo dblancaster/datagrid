@@ -50,8 +50,8 @@ class ConfigController
     {
         foreach ($columns as $column) {
             $configColumn = new ConfigColumn();
-            $configColumn->type = $column["type"];
             $configColumn->id = $column["id"];
+            $configColumn->type = $column["type"];
             $configColumn->label = $column["label"] ?? null;
             $configColumn->sortable = (bool)$column["sortable"] ?? false;
             $configColumn->enabled = (bool)$column["enabled"] ?? true;
