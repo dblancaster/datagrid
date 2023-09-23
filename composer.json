@@ -1,0 +1,8 @@
+{
+  "name": "datagrid/datagrid",
+  "autoload": {
+    "psr-4": {
+      "YourNamespace\\": "src"
+    }
+  }
+}
