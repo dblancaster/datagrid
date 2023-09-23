@@ -14,11 +14,4 @@ class Config
     /** @var ConfigColumn[] */
     public $columns = [];
 
-    public function validate()
-    {
-        foreach ($this->columns as $column) {
-            $column->validate();
-        }
-    }
-
 }
