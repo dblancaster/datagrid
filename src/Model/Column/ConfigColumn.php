@@ -32,7 +32,7 @@ class ConfigColumn
     /** @var boolean visible on UI */
     public $visible;
 
-    /** @var boolean available to add to UI */
+    /** @var boolean available to add to UI, you may want this set to false in order to add a filter */
     public $enabled;
 
     public function validate()
