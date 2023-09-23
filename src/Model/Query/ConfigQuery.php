@@ -10,8 +10,13 @@ namespace Grid\Model\Query;
 class ConfigQuery
 {
 
+    /** @var string[] */
     public $select;
+
+    /** @var ConfigQueryFrom */
     public $from;
+
+    /** @var ConfigQueryJoin[] */
     public $join;
 
 }
