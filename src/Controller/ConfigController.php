@@ -21,6 +21,7 @@ class ConfigController
     public function compileFromArray(array $configArray): Config
     {
         $config = new Config();
+        $config->label = $configArray["label"] ?? null;
         $this->compileQuery($config, $configArray["query"]);
         $this->compileColumns($config, $configArray["columns"]);
         $this->validate($config);

@@ -2,26 +2,50 @@
 
 namespace Grid\Controller;
 
+use Exception;
 use Grid\Model\Config;
 
-class GridController
+abstract class GridController
 {
 
-    protected $config;
+    protected $configController;
 
-    public function __construct(Config $config)
+    public function __construct()
     {
-        $this->setConfig($config);
+        $this->configController = new ConfigController();
     }
 
-    public function getConfig()
+    abstract public function getGridId(): string;
+
+    abstract public function getConfigArray(): array;
+
+    /**
+     * @throws Exception
+     */
+    public function getConfig(): Config
     {
-        return $this->config;
+        $config = $this->configController->compileFromArray($this->getConfigArray());
+        $configArray = json_decode(json_encode($config), true);
+        $this->mergeDataIntoConfig($configArray, []);
+        return json_decode($configArray);
     }
 
-    public function setConfig(Config $config)
+    /**
+     * @param $configArray array of Config
+     * @param $dataArray array of Config (but with just the saved data values for columns and filters)
+     * @return void
+     */
+    public function mergeDataIntoConfig(&$configArray, $dataArray)
     {
-        return $this->config = $config;
+        foreach ($dataArray as $key => $data) {
+            if (is_array($data)) {
+                if (isset($configArray[$key]) && is_array($configArray[$key])) {
+                    $this->mergeDataIntoConfig($configArray[$key], $data);
+                    continue;
+                }
+                continue;
+            }
+            $configArray[$key] = $data;
+        }
     }
-
 }

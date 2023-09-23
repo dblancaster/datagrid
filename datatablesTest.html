@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <!-- DataTables CSS -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+        <!-- DataTables JS -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    </head>
+    <body>
+        <div id="above-table-content">
+            <!-- Add your custom content here -->
+            <p>This is content above the DataTable.</p>
+        </div>
+        <table id="example" class="display" style="width:100%">
+        </table>
+        <script>
+            $(document).ready(function() {
+                var dataArray = [];
+                for (var i = 0; i < 10000; i++) {
+                    dataArray = dataArray.concat({ name: 'John', age: 30, city: 'New York', city2: 'New York' , city3: 'New York' , city4: 'New York' , city5: 'New York' , city6: 'New York' , city7: 'New York' , city8: 'New York', city9: 'New York'   });
+                }
+                $('#example').DataTable({
+                    data: dataArray,
+                    columns: [
+                        { title: 'Name', data: 'name' },
+                        { title: 'Age', data: 'age' },
+                        { data: 'city' },
+                        { data: 'city2' },
+                        { data: 'city3' },
+                        { data: 'city4' },
+                        { data: 'city5' },
+                        { data: 'city6' },
+                        { data: 'city7' },
+                        { data: 'city8' },
+                        { data: 'city9' }
+                        // Define other columns here
+                    ]
+                });
+            });
+        </script>
+    </body>
+</html>

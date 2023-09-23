@@ -4,5 +4,8 @@
     "psr-4": {
       "Grid\\": "src"
     }
+  },
+  "require": {
+    "ext-json": "*"
   }
 }

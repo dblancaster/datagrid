@@ -8,6 +8,9 @@ use Grid\Model\Query\ConfigQuery;
 class Config
 {
 
+    /** @var string */
+    public $label;
+
     /** @var ConfigQuery */
     public $query;
 
