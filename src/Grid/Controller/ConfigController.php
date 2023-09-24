@@ -3,21 +3,18 @@
 namespace Grid\Controller;
 
 use Exception;
-use Grid\Model\Column\ConfigColumn;
-use Grid\Model\Column\ConfigColumnFilter;
 use Grid\Model\Config;
-use Grid\Model\Query\ConfigQuery;
-use Grid\Model\Query\ConfigQueryFrom;
-use Grid\Model\Query\ConfigQueryJoin;
-use Grid\Model\Query\ConfigQueryWhere;
+use Grid\Model\ConfigColumn;
+use Grid\Model\ConfigColumnFilter;
+use Grid\Model\ConfigQuery;
+use Grid\Model\ConfigQueryFrom;
+use Grid\Model\ConfigQueryJoin;
+use Grid\Model\ConfigQueryWhere;
 
 
 class ConfigController
 {
 
-    /**
-     * @throws Exception
-     */
     public function compileFromArray(array $configArray): Config
     {
         $config = new Config();
@@ -28,9 +25,6 @@ class ConfigController
         return $config;
     }
 
-    /**
-     * @throws Exception
-     */
     public function validate(Config $config) {
         $errors = [];
         foreach ($config->columns as $column) {
@@ -40,7 +34,6 @@ class ConfigController
             if (!in_array($column->sort, ConfigColumn::ALLOWED_SORT, true)) {
                 $errors[] = "Invalid sort value $column->sort for $column->id";
             }
-
         }
         if ($errors) {
             throw new Exception(implode("\n", $errors));
@@ -96,6 +89,27 @@ class ConfigController
                 $configQuery->where[] = $configWhere;
             }
         }
+    }
+
+    /**
+     * @param Config $config
+     * @return string
+     * this should be injection proof, as long as the parameters in Config are only ever coming from a hardcoded configuration
+     */
+    public function compileSQL(Config $config): string
+    {
+        $query = $config->query;
+        $select = implode(", ", $query->select);
+        $where = $query->where ? " WHERE " . implode(" AND ", $query->where) : "";
+
+        $sortArray = array_filter(array_map(function ($column) {
+            return $column->sort ? "$column->id $column->sort" : null;
+        }, $config->columns));
+        $sort = $sortArray ? " ORDER BY " . implode(", ", array_filter($sortArray)) : "";
+
+        $limit = " LIMIT 10000";
+
+        return "SELECT $select FROM {$query->from->table} {$query->from->alias} $where $sort $limit";
     }
 
 }

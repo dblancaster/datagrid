@@ -1,9 +1,8 @@
 <?php
 
-namespace Grid\Controller;
+namespace Grid\Other;
 
-use Exception;
-use Grid\Model\Config;
+use Grid\Controller\GridController;
 
 class TransactionsGridController extends GridController
 {

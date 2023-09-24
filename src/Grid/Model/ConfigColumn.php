@@ -1,6 +1,6 @@
 <?php
 
-namespace Grid\Model\Column;
+namespace Grid\Model;
 
 class ConfigColumn
 {

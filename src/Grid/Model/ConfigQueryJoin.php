@@ -1,6 +1,6 @@
 <?php
 
-namespace Grid\Model\Query;
+namespace Grid\Model;
 
 /**
  * @property string $table

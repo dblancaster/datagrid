@@ -2,7 +2,7 @@
   "name": "datagrid/datagrid",
   "autoload": {
     "psr-4": {
-      "Grid\\": "src"
+      "Grid\\": "src/Grid/"
     }
   },
   "require": {
