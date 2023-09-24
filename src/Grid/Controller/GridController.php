@@ -27,7 +27,6 @@ abstract class GridController
     }
 
     /**
-     * @param $configArray array of Config
      * @param $dataArray array of Config (but with just the saved data values for columns and filters)
      * @return void
      */
