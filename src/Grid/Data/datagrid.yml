@@ -1,4 +1,4 @@
-datagrids:
+grids:
   transactions_grid:
     query:
       select:

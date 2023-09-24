@@ -1,11 +1,11 @@
-# Define the schema for a datagrid configuration
-datagrid_config_schema:
+# Define the schema for a grid configuration
+grid_config_schema:
   type: object
   properties:
-    datagrids:
+    grids:
       type: object
       patternProperties:
-        '^[a-zA-Z0-9_]+$': # Pattern for datagrid names (alphanumeric and underscore)
+        '^[a-zA-Z0-9_]+$': # Pattern for grid names (alphanumeric and underscore)
           type: object
           properties:
             query:
@@ -56,4 +56,4 @@ datagrid_config_schema:
                   enabled:
                     type: boolean
   required:
-    - datagrids
+    - grids
